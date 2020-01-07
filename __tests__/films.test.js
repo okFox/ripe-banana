@@ -94,7 +94,7 @@ describe('film routes', () => {
   it('get all Films', async() => {
 
     return request(app)
-      .get('/api/v1/Films')
+      .get('/api/v1/films')
       .then(res => {
         Films.forEach(film => {
           expect(res.body).toContain({
@@ -104,8 +104,5 @@ describe('film routes', () => {
         });
       });
   });
-
-
-
 });
 

@@ -85,33 +85,33 @@ describe('actor routes', () => {
   });
 
 
-  it('updates an actor', () => {
-    return request(app)
-      .patch(`/api/v1/actors/${actor.id}`)
-      .send({ name: 'Ingmar' })
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Ingmar',
-          dob: '1926-09-26T00:00:00.000Z',
-          pob: 'Switzerland',
-          __v: 0
-        });
-      });
-  });
+  // it('updates an actor', () => {
+  //   return request(app)
+  //     .patch(`/api/v1/actors/${actor.id}`)
+  //     .send({ name: 'Ingmar' })
+  //     .then(res => {
+  //       expect(res.body).toEqual({
+  //         _id: expect.any(String),
+  //         name: 'Ingmar',
+  //         dob: '1926-09-26T00:00:00.000Z',
+  //         pob: 'Switzerland',
+  //         __v: 0
+  //       });
+  //     });
+  // });
 
-  it('deletes an actor', () => {
-    return request(app)
-      .delete(`/api/v1/actors/${actor.id}`)
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Ingrid Bergman',
-          dob: '1926-09-26T00:00:00.000Z',
-          pob: 'Switzerland',
-          __v: 0
-        });
-      });
-  });
+  // it('deletes an actor', () => {
+  //   return request(app)
+  //     .delete(`/api/v1/actors/${actor.id}`)
+  //     .then(res => {
+  //       expect(res.body).toEqual({
+  //         _id: expect.any(String),
+  //         name: 'Ingrid Bergman',
+  //         dob: '1926-09-26T00:00:00.000Z',
+  //         pob: 'Switzerland',
+  //         __v: 0
+  //       });
+  //     });
+  // });
 });
 

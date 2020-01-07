@@ -36,19 +36,19 @@ module.exports = Router()
       .findById(req.params.id)
       .then(Studio => res.send(Studio))
       .catch(next);
-  })
-
-  .patch('/:id', (req, res, next) => {
-    Studio
-      .findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .then(studio => res.send(studio))
-      .catch(next);
-  })
-
-  .delete('/:id', (req, res, next) => {
-    Studio
-      .findByIdAndDelete(req.params.id)
-      .then(Studio => res.send(Studio))
-      .catch(next);
   });
+
+  // .patch('/:id', (req, res, next) => {
+  //   Studio
+  //     .findByIdAndUpdate(req.params.id, req.body, { new: true })
+  //     .then(studio => res.send(studio))
+  //     .catch(next);
+  // })
+
+  // .delete('/:id', (req, res, next) => {
+  //   Studio
+  //     .findByIdAndDelete(req.params.id)
+  //     .then(Studio => res.send(Studio))
+  //     .catch(next);
+  // });
   

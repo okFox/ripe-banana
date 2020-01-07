@@ -36,19 +36,19 @@ module.exports = Router()
       .findById(req.params.id)
       .then(Film => res.send(Film))
       .catch(next);
-  })
-
-  .patch('/:id', (req, res, next) => {
-    Film
-      .findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .then(film => res.send(film))
-      .catch(next);
-  })
-
-  .delete('/:id', (req, res, next) => {
-    Film
-      .findByIdAndDelete(req.params.id)
-      .then(Film => res.send(Film))
-      .catch(next);
   });
+
+  // .patch('/:id', (req, res, next) => {
+  //   Film
+  //     .findByIdAndUpdate(req.params.id, req.body, { new: true })
+  //     .then(film => res.send(film))
+  //     .catch(next);
+  // })
+
+  // .delete('/:id', (req, res, next) => {
+  //   Film
+  //     .findByIdAndDelete(req.params.id)
+  //     .then(Film => res.send(Film))
+  //     .catch(next);
+  // });
   

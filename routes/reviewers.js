@@ -23,14 +23,6 @@ module.exports = Router()
       .catch(next);
   })
 
-  .get('/search', (req, res, next) => {
-    Reviewer
-      .getAuthorWithPartialText(req.query.partialText)
-      .then(reviewer => res.send(reviewer))
-      .catch(next);
-  })
-
-
   .get('/:id', (req, res, next) => {
     Reviewer
       .findById(req.params.id)
@@ -43,12 +35,12 @@ module.exports = Router()
       .findByIdAndUpdate(req.params.id, req.body, { new: true })
       .then(reviewer => res.send(reviewer))
       .catch(next);
-  })
-
-  .delete('/:id', (req, res, next) => {
-    Reviewer
-      .findByIdAndDelete(req.params.id)
-      .then(Reviewer => res.send(Reviewer))
-      .catch(next);
   });
+
+  // .delete('/:id', (req, res, next) => {
+  //   Reviewer
+  //     .findByIdAndDelete(req.params.id)
+  //     .then(Reviewer => res.send(Reviewer))
+  //     .catch(next);
+  // });
   

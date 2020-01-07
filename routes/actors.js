@@ -38,12 +38,12 @@ module.exports = Router()
       .catch(next);
   })
 
-  .patch('/:id', (req, res, next) => {
-    Actor
-      .findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .then(actor => res.send(actor))
-      .catch(next);
-  })
+  // .patch('/:id', (req, res, next) => {
+  //   Actor
+  //     .findByIdAndUpdate(req.params.id, req.body, { new: true })
+  //     .then(actor => res.send(actor))
+  //     .catch(next);
+  // })
 
   .delete('/:id', (req, res, next) => {
     Actor
@@ -51,4 +51,3 @@ module.exports = Router()
       .then(actor => res.send(actor))
       .catch(next);
   });
-  

@@ -94,17 +94,17 @@ describe('reviewer routes', () => {
       });
   });
 
-  it('deletes an reviewer', () => {
-    return request(app)
-      .delete(`/api/v1/reviewers/${reviewer.id}`)
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Bob Phonic',
-          company: 'Amazon Verified Customer',
-          __v: 0
-        });
-      });
-  });
+  // it('deletes an reviewer', () => {
+  //   return request(app)
+  //     .delete(`/api/v1/reviewers/${reviewer.id}`)
+  //     .then(res => {
+  //       expect(res.body).toEqual({
+  //         _id: expect.any(String),
+  //         name: 'Bob Phonic',
+  //         company: 'Amazon Verified Customer',
+  //         __v: 0
+  //       });
+  //     });
+  // });
 });
 

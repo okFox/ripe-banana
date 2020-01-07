@@ -96,39 +96,39 @@ describe('studio routes', () => {
   });
 
 
-  it('updates an studio', () => {
-    return request(app)
-      .patch(`/api/v1/studios/${studio.id}`)
-      .send({ name: 'Disney' })
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Disney',
-          address: {
-            city: 'Los Angeles',
-            state: 'CA',
-            country: 'USA',
-          },
-          __v: 0
-        });
-      });
-  });
+  // it('updates an studio', () => {
+  //   return request(app)
+  //     .patch(`/api/v1/studios/${studio.id}`)
+  //     .send({ name: 'Disney' })
+  //     .then(res => {
+  //       expect(res.body).toEqual({
+  //         _id: expect.any(String),
+  //         name: 'Disney',
+  //         address: {
+  //           city: 'Los Angeles',
+  //           state: 'CA',
+  //           country: 'USA',
+  //         },
+  //         __v: 0
+  //       });
+  //     });
+  // });
 
-  it('deletes an studio', () => {
-    return request(app)
-      .delete(`/api/v1/studios/${studio.id}`)
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Sony',
-          address: {
-            city: 'Los Angeles',
-            state: 'CA',
-            country: 'USA',
-          },
-          __v: 0
-        });
-      });
-  });
+  // it('deletes an studio', () => {
+  //   return request(app)
+  //     .delete(`/api/v1/studios/${studio.id}`)
+  //     .then(res => {
+  //       expect(res.body).toEqual({
+  //         _id: expect.any(String),
+  //         name: 'Sony',
+  //         address: {
+  //           city: 'Los Angeles',
+  //           state: 'CA',
+  //           country: 'USA',
+  //         },
+  //         __v: 0
+  //       });
+  //     });
+  // });
 });
 

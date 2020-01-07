@@ -37,18 +37,18 @@ module.exports = Router()
       .findById(req.params.id)
       .then(review => res.send(review))
       .catch(next);
-  })
-
-  .patch('/:id', (req, res, next) => {
-    Review
-      .findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .then(review => res.send(review))
-      .catch(next);
-  })
-
-  .delete('/:id', (req, res, next) => {
-    Review
-      .findByIdAndDelete(req.params.id)
-      .then(review => res.send(review))
-      .catch(next);
   });
+
+  // .patch('/:id', (req, res, next) => {
+  //   Review
+  //     .findByIdAndUpdate(req.params.id, req.body, { new: true })
+  //     .then(review => res.send(review))
+  //     .catch(next);
+  // })
+
+  // .delete('/:id', (req, res, next) => {
+  //   Review
+  //     .findByIdAndDelete(req.params.id)
+  //     .then(review => res.send(review))
+  //     .catch(next);
+  // });
