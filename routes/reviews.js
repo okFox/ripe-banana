@@ -17,9 +17,10 @@ module.exports = Router()
     const { page = 1, perPage = 25 } = req.query;
     Review
       .find()
+      .sort({ rating: 1 })
       .limit(Number(perPage))
       .skip((Number(page) - 1) * Number(perPage))
-      .then(reviewers => res.send(reviewers))
+      .then(reviews => res.send(reviews))
       .catch(next);
   })
 
