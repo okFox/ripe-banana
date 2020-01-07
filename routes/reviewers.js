@@ -29,18 +29,23 @@ module.exports = Router()
       .then(Reviewer => res.send(Reviewer))
       .catch(next);
   })
+  .delete('/:id', async(req, res, next) => {
+    const reviewer = await Reviewer.findById(req.params.id);
+    try {
+      const reviews = await reviewer.getReviews();
+      if(reviews.length) {
+        res.send('Cannot delete, there are associated reviews');
+        //throw new Error('Cannot delete, there are associated reviews');
+      } else {
+        const deletedReviewer = await Reviewer.findByIdAndDelete(req.params.id);
+        res.send(deletedReviewer);
+      }
+    }
+    catch(err) {
+      console.log(err); // eslint-disable-line no-console
+      next(err);
+    }
 
-  .patch('/:id', (req, res, next) => {
-    Reviewer
-      .findByIdAndUpdate(req.params.id, req.body, { new: true })
-      .then(reviewer => res.send(reviewer))
-      .catch(next);
   });
 
-  // .delete('/:id', (req, res, next) => {
-  //   Reviewer
-  //     .findByIdAndDelete(req.params.id)
-  //     .then(Reviewer => res.send(Reviewer))
-  //     .catch(next);
-  // });
-  
+
