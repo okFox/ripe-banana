@@ -6,6 +6,8 @@ const app = require('../lib/app');
 const connect = require('../lib/utils/connect');
 const mongoose = require('mongoose');
 const Film = require('../lib/models/Film');
+const Studio = require('../lib/models/Studio');
+const Actor = require('../lib/models/Actor');
 
 
 describe('film routes', () => {
@@ -20,12 +22,30 @@ describe('film routes', () => {
 
   let film;
   let Films = [];
+  let studio;
+  let actor;
 
-  beforeEach(async() => {
-    film = await Film.create({   
-      studio: objectId,
+  beforeEach(async() => { 
+    studio = await Studio.create({
+      name: 'Sony',
+      address: {
+        city: 'Los Angeles',
+        state: 'CA',
+        country: 'USA'
+      }
+    });
+
+    actor = await Actor.create({   
+      name: 'Elroy McKinney',
+      dob: '1926-09-26',
+      pob: 'Switzerland'
+    });
+
+    film = await Film.create({
+      title: 'Hackers', 
+      studio: studio._id,
       released: 1995,
-      cast: [{ role: 'ZeroCool', actor: objectId }]
+      cast: [{ role: 'ZeroCool', actor: actor._id }]
     });
   });
 
@@ -35,18 +55,20 @@ describe('film routes', () => {
 
   it('can create a new film', () => {
     return request(app)
-      .post('/api/v1/Films')
+      .post('/api/v1/films')
       .send({
-        name: 'Ingrid Bergman',
-        dob: '1926-09-26',
-        pob: 'Switzerland'
+        title: 'Hackers', 
+        studio: studio._id,
+        released: 1995,
+        cast: [{ role: 'ZeroCool', actor: actor._id }]
       })
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
-          name: 'Ingrid Bergman',
-          dob: '1926-09-26T00:00:00.000Z',
-          pob: 'Switzerland',
+          title: 'Hackers', 
+          studio: expect.any(String),
+          released: 1995,
+          cast: [{ _id: expect.any(String), role: 'ZeroCool', actor: expect.any(String) }],
           __v: 0
         });
 
@@ -55,20 +77,19 @@ describe('film routes', () => {
 
   it('gets an film by id', () => {
     return request(app)
-      .get(`/api/v1/Films/${film.id}`)
+      .get(`/api/v1/films/${film.id}`)
       .then(res => {
         expect(res.body).toEqual({
           _id: expect.any(String),
-          name: 'Ingrid Bergman',
-          dob: '1926-09-26T00:00:00.000Z',
-          pob: 'Switzerland',
+          title: 'Hackers', 
+          studio: expect.any(String),
+          released: 1995,
+          cast: [{ _id: expect.any(String), role: 'ZeroCool', actor: expect.any(String) }],
           __v: 0
         });
       });
 
   });
-
-
 
   it('get all Films', async() => {
 
@@ -85,33 +106,6 @@ describe('film routes', () => {
   });
 
 
-  it('updates an film', () => {
-    return request(app)
-      .patch(`/api/v1/Films/${film.id}`)
-      .send({ name: 'Ingmar' })
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Ingmar',
-          dob: '1926-09-26T00:00:00.000Z',
-          pob: 'Switzerland',
-          __v: 0
-        });
-      });
-  });
 
-  it('deletes an film', () => {
-    return request(app)
-      .delete(`/api/v1/Films/${film.id}`)
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Ingrid Bergman',
-          dob: '1926-09-26T00:00:00.000Z',
-          pob: 'Switzerland',
-          __v: 0
-        });
-      });
-  });
 });
 
