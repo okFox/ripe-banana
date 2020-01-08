@@ -42,7 +42,7 @@ module.exports = Router()
 
   // .delete('/:id', (req, res, next) => {
   //   Studio
-  //     .findByIdAndDelete(req.params.id)
+  //     .findByIdandRemove(req.params.id)
   //     .then(Studio => res.send(Studio))
   //     .catch(next);
   // });
