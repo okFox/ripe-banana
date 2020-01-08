@@ -22,33 +22,13 @@ module.exports = Router()
       .then(films => res.send(films))
       .catch(next);
   })
-
-//   .get('/search', (req, res, next) => {
-//     Film
-//       .getAuthorWithPartialText(req.query.partialText)
-//       .then(film => res.send(film))
-//       .catch(next);
-//   })
-
-
+  
   .get('/:id', (req, res, next) => {
     Film
       .findById(req.params.id)
-      .then(Film => res.send(Film))
+      .populate('studio', 'name')
+      .populate('cast.actor', 'name')
+      .then(film => film.addReviews())
+      .then(film => res.send(film))
       .catch(next);
   });
-
-  // .patch('/:id', (req, res, next) => {
-  //   Film
-  //     .findByIdAndUpdate(req.params.id, req.body, { new: true })
-  //     .then(film => res.send(film))
-  //     .catch(next);
-  // })
-
-  // .delete('/:id', (req, res, next) => {
-  //   Film
-  //     .findByIdAndDelete(req.params.id)
-  //     .then(Film => res.send(Film))
-  //     .catch(next);
-  // });
-  
