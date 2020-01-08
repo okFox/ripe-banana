@@ -57,6 +57,7 @@ describe('reviewer routes', () => {
           _id: expect.any(String),
           name: 'Bob Phonic',
           company: 'Amazon Verified Customer',
+          reviews: expect.any(Array),
           __v: 0
         });
       });

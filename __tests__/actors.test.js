@@ -62,6 +62,7 @@ describe('actor routes', () => {
           name: 'Ingrid Bergman',
           dob: '1926-09-26T00:00:00.000Z',
           pob: 'Switzerland',
+          films: expect.any(Array),
           __v: 0
         });
       });

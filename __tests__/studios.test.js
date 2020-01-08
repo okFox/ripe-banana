@@ -73,6 +73,7 @@ describe('studio routes', () => {
             state: 'CA',
             country: 'USA',
           },
+          films: expect.any(Array),
           __v: 0
         });
       });

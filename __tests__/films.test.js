@@ -82,9 +82,10 @@ describe('film routes', () => {
         expect(res.body).toEqual({
           _id: expect.any(String),
           title: 'Hackers', 
-          studio: expect.any(String),
+          studio: { _id: expect.any(String), name: 'Sony' },
           released: 1995,
-          cast: [{ _id: expect.any(String), role: 'ZeroCool', actor: expect.any(String) }],
+          cast: [{ _id: expect.any(String), role: 'ZeroCool', actor: { _id: expect.any(String), name: 'Elroy McKinney' } }],
+          reviews: expect.any(Array),
           __v: 0
         });
       });
