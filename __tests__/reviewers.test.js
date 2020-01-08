@@ -80,19 +80,19 @@ describe('reviewer routes', () => {
   });
 
 
-  it('updates an reviewer', () => {
-    return request(app)
-      .patch(`/api/v1/reviewers/${reviewer.id}`)
-      .send({ name: 'Corey' })
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Corey',
-          company: 'Amazon Verified Customer',
-          __v: 0
-        });
-      });
-  });
+  // it('updates an reviewer', () => {
+  //   return request(app)
+  //     .patch(`/api/v1/reviewers/${reviewer.id}`)
+  //     .send({ name: 'Corey' })
+  //     .then(res => {
+  //       expect(res.body).toEqual({
+  //         _id: expect.any(String),
+  //         name: 'Corey',
+  //         company: 'Amazon Verified Customer',
+  //         __v: 0
+  //       });
+  //     });
+  // });
 
   // it('deletes an reviewer', () => {
   //   return request(app)

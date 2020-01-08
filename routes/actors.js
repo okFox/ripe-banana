@@ -17,6 +17,7 @@ module.exports = Router()
     const { page = 1, perPage = 25 } = req.query;
     Actor
       .find()
+      .select({ name: true })
       .limit(Number(perPage))
       .skip((Number(page) - 1) * Number(perPage))
       .then(actors => res.send(actors))
