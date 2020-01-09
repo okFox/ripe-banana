@@ -3,133 +3,49 @@ require('dotenv').config();
 
 const request = require('supertest');
 const app = require('../lib/app');
-const connect = require('../lib/utils/connect');
-const mongoose = require('mongoose');
-const Studio = require('../lib/models/Studio');
+const { getStudio, getStudios }  = require('../lib/helpers/data-helpers');
 
 
 describe('studio routes', () => {
-  beforeAll(() => {
-    connect();
-  });
+  
 
-  // beforeEach(() => {
-  //   return mongoose.connection.dropDatabase();
-  // });
+  it('can create a new studio', async() => {
+    const studio = await getStudio();
+    delete studio._id;
 
-
-  let studio;
-  let studios = [];
-
-  beforeEach(async() => {
-    studio = await Studio.create({
-      name: 'Sony',
-      address: {
-        city: 'Los Angeles',
-        state: 'CA',
-        country: 'USA'
-      }
-    });
-  });
-
-  afterAll(() => {
-    return mongoose.connection.close();
-  });
-
-  it('can create a new studio', () => {
     return request(app)
       .post('/api/v1/studios')
-      .send({
-        name: 'Sony',
-        address: {
-          city: 'Los Angeles',
-          state: 'CA',
-          country: 'USA'
-        } })
+      .send(studio)
       .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Sony',
-          address: {
-            city: 'Los Angeles',
-            state: 'CA',
-            country: 'USA',
-          },
-          __v: 0
-        });
+        expect(res.body).toEqual(expect.objectContaining(studio));
 
       });
   });
 
-  it('gets an studio by id', () => {
-    return request(app)
-      .get(`/api/v1/studios/${studio.id}`)
-      .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          name: 'Sony',
-          address: {
-            city: 'Los Angeles',
-            state: 'CA',
-            country: 'USA',
-          },
-          films: expect.any(Array),
-          __v: 0
-        });
-      });
+  it('gets an studio by id', async() => {
+    const studio = await getStudio();
 
+    return request(app)
+      .get(`/api/v1/studios/${studio._id}`)
+      .then(res => {
+        expect(res.body).toEqual(expect.objectContaining({ _id: studio._id }));
+      });
   });
 
 
 
   it('get all studios', async() => {
-
+    const studios = await getStudios();
+  
     return request(app)
       .get('/api/v1/studios')
       .then(res => {
         studios.forEach(studio => {
-          expect(res.body).toContain({
-            _id: studio._id.toString(),
-            name: studio.name,
-          });
+          delete studio.__v;
+          delete studio.address;
+          expect(res.body).toContainEqual(studio);
         });
       });
   });
-
-
-  // it('updates an studio', () => {
-  //   return request(app)
-  //     .patch(`/api/v1/studios/${studio.id}`)
-  //     .send({ name: 'Disney' })
-  //     .then(res => {
-  //       expect(res.body).toEqual({
-  //         _id: expect.any(String),
-  //         name: 'Disney',
-  //         address: {
-  //           city: 'Los Angeles',
-  //           state: 'CA',
-  //           country: 'USA',
-  //         },
-  //         __v: 0
-  //       });
-  //     });
-  // });
-
-  // it('deletes an studio', () => {
-  //   return request(app)
-  //     .delete(`/api/v1/studios/${studio.id}`)
-  //     .then(res => {
-  //       expect(res.body).toEqual({
-  //         _id: expect.any(String),
-  //         name: 'Sony',
-  //         address: {
-  //           city: 'Los Angeles',
-  //           state: 'CA',
-  //           country: 'USA',
-  //         },
-  //         __v: 0
-  //       });
-  //     });
-  // });
 });
 

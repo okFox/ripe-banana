@@ -3,121 +3,42 @@ require('dotenv').config();
 
 const request = require('supertest');
 const app = require('../lib/app');
-const connect = require('../lib/utils/connect');
-const mongoose = require('mongoose');
-const Film = require('../lib/models/Film');
-const Studio = require('../lib/models/Studio');
-const Actor = require('../lib/models/Actor');
-const Review = require('../lib/models/Review');
-const Reviewer = require('../lib/models/Reviewer');
+
+const { getReview, getReviews }  = require('../lib/helpers/data-helpers');
 
 
 describe('review routes', () => {
-  beforeAll(() => {
-    connect();
-  });
+  
+  it('can create a new review', async() => {
+    const review = await getReview();
+    delete review._id;
 
-  // beforeEach(() => {
-  //   return mongoose.connection.dropDatabase();
-  // });
-
-
-  let film;
-  let studio;
-  let actor;
-  let review;
-  let Reviews = [];
-  let reviewer;
-
-  beforeEach(async() => { 
-    reviewer = await Reviewer.create({
-      name: 'Bob Phonic',
-      company: 'Amazon Verified Customer'
-    });
-    
-    studio = await Studio.create({   
-      name: 'Sony',
-      address: {
-        city: 'Los Angeles',
-        state: 'CA',
-        country: 'USA'
-      }
-    });
-    
-    actor = await Actor.create({   
-      name: 'Elroy McKinney',
-      dob: '1926-09-26',
-      pob: 'Switzerland'
-    });
-
-    film = await Film.create({
-      title: 'Hackers', 
-      studio: studio._id,
-      released: 1995,
-      cast: [{ role: 'ZeroCool', actor: actor._id }]
-    });
-
-    review = await Review.create({   
-      rating: 1,
-      reviewer: reviewer._id,
-      review: 'OMG that sucked',
-      film: film._id
-    });
-    
-  });
-
-  afterAll(() => {
-    return mongoose.connection.close();
-  });
-
-  it('can create a new review', () => {
     return request(app)
       .post('/api/v1/reviews')
-      .send({
-        rating: 1,
-        reviewer: reviewer._id,
-        review: 'OMG that sucked',
-        film: film._id
-      })
+      .send(review)
       .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          rating: 1,
-          reviewer: expect.any(String),
-          review: 'OMG that sucked',
-          film: expect.any(String),
-          __v: 0
-        });
+        expect(res.body).toEqual(expect.objectContaining(review));
 
       });
   });
 
-  it('gets an review by id', () => {
+  it('gets an review by id', async() => {
+    const review = await getReview();
     return request(app)
-      .get(`/api/v1/reviews/${review.id}`)
+      .get(`/api/v1/reviews/${review._id}`)
       .then(res => {
-        expect(res.body).toEqual({
-          _id: expect.any(String),
-          rating: 1,
-          reviewer: expect.any(String),
-          review: 'OMG that sucked',
-          film: expect.any(String),
-          __v: 0
-        });
+        expect(res.body).toEqual(expect.objectContaining({ _id: review._id }));
       });
 
   });
 
   it('get all reviews', async() => {
-
+    const reviews = await getReviews();
     return request(app)
       .get('/api/v1/reviews')
       .then(res => {
-        Reviews.forEach(review => {
-          expect(res.body).toContain({
-            _id: review._id.toString(),
-            name: review.name,
-          });
+        reviews.forEach(review => {
+          expect(res.body).toContainEqual(review);
         });
       });
   });
