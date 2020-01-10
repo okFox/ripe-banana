@@ -1,10 +1,11 @@
 
 const { Router } = require('express');
 const Actor = require('../lib/models/Actor');
+const { isLoggedIn, isAdmin } = require('../lib/middleware/ensure-auth');
 
 
 module.exports = Router()
-  .post('/', (req, res, next) => {
+  .post('/', isLoggedIn, isAdmin, (req, res, next) => {
     Actor
       .create(req.body)
       .then(actor => res.send(actor))
