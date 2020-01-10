@@ -4,8 +4,7 @@ require('dotenv').config();
 const request = require('supertest');
 const app = require('../lib/app');
 
-
-const { getFilm, getFilms }  = require('../lib/helpers/data-helpers');
+const { getFilm, getFilms, adminAgent }  = require('../lib/helpers/data-helpers');
 
 
 describe('film routes', () => {
@@ -15,7 +14,7 @@ describe('film routes', () => {
     const film = await getFilm();
     delete film._id;
 
-    return request(app)
+    return adminAgent
       .post('/api/v1/films')
       .send(film)
       .then(res => {

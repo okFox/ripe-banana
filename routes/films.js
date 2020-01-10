@@ -1,6 +1,7 @@
 
 const { Router } = require('express');
 const Film = require('../lib/models/Film');
+// const ensureAuth = require('../lib/middleware/ensure-auth');
 
 
 module.exports = Router()

@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const request = require('supertest');
 const app = require('../lib/app');
-const { getStudio, getStudios }  = require('../lib/helpers/data-helpers');
+const { getStudio, getStudios, adminAgent }  = require('../lib/helpers/data-helpers');
 
 
 describe('studio routes', () => {
@@ -13,7 +13,7 @@ describe('studio routes', () => {
     const studio = await getStudio();
     delete studio._id;
 
-    return request(app)
+    return adminAgent
       .post('/api/v1/studios')
       .send(studio)
       .then(res => {

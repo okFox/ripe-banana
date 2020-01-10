@@ -1,10 +1,11 @@
 
 const { Router } = require('express');
 const Studio = require('../lib/models/Studio');
+// const ensureAuth = require('../lib/middleware/ensure-auth');
 
 
 module.exports = Router()
-  .post('/', (req, res, next) => {
+  .post('/',  (req, res, next) => {
     Studio
       .create(req.body)
       .then(studio => res.send(studio))

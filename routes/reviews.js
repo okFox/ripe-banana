@@ -1,10 +1,12 @@
 
 const { Router } = require('express');
 const Review = require('../lib/models/Review');
+const { isLoggedIn, isAuthorized } = require('../lib/middleware/ensure-auth');
+
 
 
 module.exports = Router()
-  .post('/', (req, res, next) => {
+  .post('/', isLoggedIn, isAuthorized,  (req, res, next) => {
     Review
       .create(req.body)
       .then(review => res.send(review))

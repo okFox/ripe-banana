@@ -4,12 +4,12 @@ require('dotenv').config();
 const request = require('supertest');
 const app = require('../lib/app');
 // const Actor = require('../lib/models/Actor');
-const { getActor, getActors }  = require('../lib/helpers/data-helpers');
+const { getActor, getActors, adminAgent }  = require('../lib/helpers/data-helpers');
 
 describe('actor routes', () => {
 
   it('can create a new actor', () => {
-    return request(app)
+    return adminAgent
       .post('/api/v1/actors')
       .send({
         name: 'Ingrid Bergman',

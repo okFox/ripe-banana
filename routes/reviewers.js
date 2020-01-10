@@ -1,11 +1,12 @@
 
 const { Router } = require('express');
 const Reviewer = require('../lib/models/Reviewer');
+// const ensureAuth = require('../lib/middleware/ensure-auth');
 
 
 
 module.exports = Router()
-  .post('/', (req, res, next) => {
+  .post('/',   (req, res, next) => {
     Reviewer
       .create(req.body)
       .then(reviewer => res.send(reviewer))
@@ -33,7 +34,7 @@ module.exports = Router()
       .catch(next);
   })
 
-  .delete('/:id', async(req, res, next) => {
+  .delete('/:id',  async(req, res, next) => {
     Reviewer
       .deleteByIdIfNoReviews(req.params.id)
       .then(deletedReviewer => res.send(deletedReviewer))
