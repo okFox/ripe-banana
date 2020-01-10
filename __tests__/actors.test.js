@@ -3,7 +3,7 @@ require('dotenv').config();
 
 const request = require('supertest');
 const app = require('../lib/app');
-// const Actor = require('../lib/models/Actor');
+
 const { getActor, getActors, adminAgent }  = require('../lib/helpers/data-helpers');
 
 describe('actor routes', () => {

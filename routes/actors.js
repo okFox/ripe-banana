@@ -12,7 +12,6 @@ module.exports = Router()
       .catch(next);
   })
 
-//get all with pagination
   .get('/', (req, res, next) => {
 
     const { page = 1, perPage = 25 } = req.query;

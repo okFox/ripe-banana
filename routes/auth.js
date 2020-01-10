@@ -12,7 +12,7 @@ const setSessionCookie = (res, token) => {
 
 module.exports = Router()
   .post('/signup', (req, res, next) => {
-    // { email: 'test@test.com', password: 'password' }
+
     User
       .create(req.body)
       .then(user => {

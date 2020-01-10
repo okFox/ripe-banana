@@ -1,9 +1,6 @@
 
 const { Router } = require('express');
 const Reviewer = require('../lib/models/Reviewer');
-// const ensureAuth = require('../lib/middleware/ensure-auth');
-
-
 
 module.exports = Router()
   .post('/',   (req, res, next) => {
@@ -13,7 +10,6 @@ module.exports = Router()
       .catch(next);
   })
 
-//get all with pagination
   .get('/', (req, res, next) => {
 
     const { page = 1, perPage = 25 } = req.query;

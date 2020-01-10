@@ -1,8 +1,6 @@
 
 const { Router } = require('express');
 const Film = require('../lib/models/Film');
-// const ensureAuth = require('../lib/middleware/ensure-auth');
-
 
 module.exports = Router()
   .post('/', (req, res, next) => {
@@ -12,7 +10,6 @@ module.exports = Router()
       .catch(next);
   })
 
-//get all with pagination
   .get('/', (req, res, next) => {
 
     const { page = 1, perPage = 25 } = req.query;

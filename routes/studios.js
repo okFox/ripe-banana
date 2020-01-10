@@ -1,8 +1,6 @@
 
 const { Router } = require('express');
 const Studio = require('../lib/models/Studio');
-// const ensureAuth = require('../lib/middleware/ensure-auth');
-
 
 module.exports = Router()
   .post('/',  (req, res, next) => {
@@ -12,7 +10,6 @@ module.exports = Router()
       .catch(next);
   })
 
-//get all with pagination
   .get('/', (req, res, next) => {
 
     const { page = 1, perPage = 25 } = req.query;
@@ -33,18 +30,3 @@ module.exports = Router()
       .then(Studio => res.send(Studio))
       .catch(next);
   });
-
-  // .patch('/:id', (req, res, next) => {
-  //   Studio
-  //     .findByIdAndUpdate(req.params.id, req.body, { new: true })
-  //     .then(studio => res.send(studio))
-  //     .catch(next);
-  // })
-
-  // .delete('/:id', (req, res, next) => {
-  //   Studio
-  //     .findByIdandRemove(req.params.id)
-  //     .then(Studio => res.send(Studio))
-  //     .catch(next);
-  // });
-  
