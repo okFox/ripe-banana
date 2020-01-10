@@ -4,7 +4,7 @@ require('dotenv').config();
 const request = require('supertest');
 const app = require('../lib/app');
 
-const { getReviewers, getReviewer }  = require('../lib/helpers/data-helpers');
+const { getReviewers, getReviewer, adminAgent }  = require('../lib/helpers/data-helpers');
 
 describe('reviewer routes', () => {
   
@@ -12,7 +12,7 @@ describe('reviewer routes', () => {
     const reviewer = await getReviewer();
     delete reviewer._id;
 
-    return request(app)
+    return adminAgent
       .post('/api/v1/reviewers')
       .send(reviewer)
       .then(res => {
